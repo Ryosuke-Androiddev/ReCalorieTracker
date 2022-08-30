@@ -34,17 +34,17 @@ class NutrientGoalViewModel @Inject constructor(
 
     fun onEvent(event: NutrientGoalEvent) {
         when (event) {
-            is NutrientGoalEvent.OnCarbRatioEvent -> {
+            is NutrientGoalEvent.OnCarbRatioEventEnter -> {
                 state = state.copy(
                     carbsRatio = filterOutDigits(event.ratio)
                 )
             }
-            is NutrientGoalEvent.OnProteinRatioEvent -> {
+            is NutrientGoalEvent.OnProteinRatioEventEnter -> {
                 state = state.copy(
                     carbsRatio = filterOutDigits(event.ratio)
                 )
             }
-            is NutrientGoalEvent.OnFatRatioEvent -> {
+            is NutrientGoalEvent.OnFatRatioEventEnter -> {
                 state = state.copy(
                     carbsRatio = filterOutDigits(event.ratio)
                 )
