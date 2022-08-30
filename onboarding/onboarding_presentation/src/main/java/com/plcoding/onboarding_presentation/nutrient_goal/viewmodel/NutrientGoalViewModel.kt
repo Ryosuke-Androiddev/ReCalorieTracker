@@ -7,10 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plcoding.core.domain.preferences.Preferences
 import com.plcoding.core.domain.use_case.FilterOutDigits
-import com.plcoding.core.domain.use_case.ValidateNutrients
-import com.plcoding.core.domain.use_case.model.resource.Result
 import com.plcoding.core.navigation.Route
 import com.plcoding.core.util.UiEvent
+import com.plcoding.onboarding_domain.use_case.ValidateNutrients
 import com.plcoding.onboarding_presentation.nutrient_goal.model.event.NutrientGoalEvent
 import com.plcoding.onboarding_presentation.nutrient_goal.model.state_model.NutrientGoalState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -56,7 +55,7 @@ class NutrientGoalViewModel @Inject constructor(
                     fatRatioText = state.fatRatio
                 )
                 when (result) {
-                    is Result.Success -> {
+                    is ValidateNutrients.Result.Success -> {
                         preferences.saveCarbRatio(result.carbsRatio)
                         preferences.saveProteinRatio(result.proteinRatio)
                         preferences.saveFatRatio(result.fatRatio)
@@ -64,7 +63,7 @@ class NutrientGoalViewModel @Inject constructor(
                             _uiEvent.send(UiEvent.Navigate(Route.TRACKER_OVERVIEW))
                         }
                     }
-                    is Result.Error -> {
+                    is ValidateNutrients.Result.Error -> {
                         viewModelScope.launch {
                             _uiEvent.send(UiEvent.ShowSnackbar(message = result.message))
                         }

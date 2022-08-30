@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(Route.TRACKER_OVERVIEW) {
-                            NutrientGoalScreen(scaffoldState = scaffoldState, onNavigate = navController::navigate)
+
                         }
                         composable(Route.SEARCH) {
 
