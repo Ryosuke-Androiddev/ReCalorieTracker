@@ -90,6 +90,7 @@ class TrackerOverviewViewModel @Inject constructor(
             .onEach { foods ->
                 // 日付で取り出したトラックしていたフードに対して、ミールタイプごとにカロリーとかの計算をする
                 val nutrientResult = trackerUseCases.calculateMealNutrients(foods)
+                // こっちは一日の各項目の合計値をもらってる
                 state = state.copy(
                     totalCarbs = nutrientResult.totalCarbs,
                     totalProtein = nutrientResult.totalProtein,
