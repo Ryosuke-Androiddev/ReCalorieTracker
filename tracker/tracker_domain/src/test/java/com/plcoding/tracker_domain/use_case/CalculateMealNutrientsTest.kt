@@ -79,16 +79,131 @@ class CalculateMealNutrientsTest {
 
     @Test
     fun `Calories for Lunch properly calculated`() {
+        val dummyTrackedFood = (1..30).map {
+            TrackedFood(
+                name = "dummy + $it",
+                carbs = Random.nextInt(100),
+                protein = Random.nextInt(100),
+                fat = Random.nextInt(100),
+                mealType = MealType.fromString(
+                    listOf("breakfast", "lunch", "dinner", "snack").random()
+                ),
+                imageUrl = null,
+                amount = 100,
+                date = LocalDate.now(),
+                calories = Random.nextInt(2000)
+            )
+        }
 
+        // 実際にここで処理をコール
+        val result = calculateMealNutrients(trackedFoods = dummyTrackedFood)
+
+        val breakFastCalories = result.mealNutrients.values
+            .filter { it.mealType == MealType.Lunch }
+            .sumOf { it.calories }
+
+        val expectedCalories = dummyTrackedFood
+            .filter { it.mealType == MealType.Lunch }
+            .sumOf { it.calories }
+
+        assertThat(breakFastCalories).isEqualTo(expectedCalories)
     }
 
     @Test
     fun `Calories for Dinner properly calculated`() {
+        val dummyTrackedFood = (1..30).map {
+            TrackedFood(
+                name = "dummy + $it",
+                carbs = Random.nextInt(100),
+                protein = Random.nextInt(100),
+                fat = Random.nextInt(100),
+                mealType = MealType.fromString(
+                    listOf("breakfast", "lunch", "dinner", "snack").random()
+                ),
+                imageUrl = null,
+                amount = 100,
+                date = LocalDate.now(),
+                calories = Random.nextInt(2000)
+            )
+        }
 
+        // 実際にここで処理をコール
+        val result = calculateMealNutrients(trackedFoods = dummyTrackedFood)
+
+        val breakFastCalories = result.mealNutrients.values
+            .filter { it.mealType == MealType.Dinner }
+            .sumOf { it.calories }
+
+        val expectedCalories = dummyTrackedFood
+            .filter { it.mealType == MealType.Dinner }
+            .sumOf { it.calories }
+
+        assertThat(breakFastCalories).isEqualTo(expectedCalories)
     }
 
     @Test
     fun `Calories for Snack properly calculated`() {
+        val dummyTrackedFood = (1..30).map {
+            TrackedFood(
+                name = "dummy + $it",
+                carbs = Random.nextInt(100),
+                protein = Random.nextInt(100),
+                fat = Random.nextInt(100),
+                mealType = MealType.fromString(
+                    listOf("breakfast", "lunch", "dinner", "snack").random()
+                ),
+                imageUrl = null,
+                amount = 100,
+                date = LocalDate.now(),
+                calories = Random.nextInt(2000)
+            )
+        }
 
+        // 実際にここで処理をコール
+        val result = calculateMealNutrients(trackedFoods = dummyTrackedFood)
+
+        val breakFastCalories = result.mealNutrients.values
+            .filter { it.mealType == MealType.Snack }
+            .sumOf { it.calories }
+
+        val expectedCalories = dummyTrackedFood
+            .filter { it.mealType == MealType.Snack }
+            .sumOf { it.calories }
+
+        assertThat(breakFastCalories).isEqualTo(expectedCalories)
+    }
+
+    // 正常系がうまくいけば、ロジックがうまくいっているはずなので、エラーケースは一つでもよいかも
+    @Test
+    fun `Calories for Breakfast doesn't properly calculated`() {
+        val dummyTrackedFood = (1..30).map {
+            TrackedFood(
+                name = "dummy + $it",
+                carbs = Random.nextInt(100),
+                protein = Random.nextInt(100),
+                fat = Random.nextInt(100),
+                mealType = MealType.fromString(
+                    listOf("breakfast", "lunch", "dinner", "snack").random()
+                ),
+                imageUrl = null,
+                amount = 100,
+                date = LocalDate.now(),
+                calories = Random.nextInt(2000)
+            )
+        }
+
+        // 実際にここで処理をコール
+        val result = calculateMealNutrients(trackedFoods = dummyTrackedFood)
+
+        val breakFastCalories = result.mealNutrients.values
+            .filter { it.mealType == MealType.Breakfast }
+            .sumOf { it.calories }
+
+        // 合計をする際に間違えることはほぼないと思うけど
+        val expectedCalories = dummyTrackedFood
+            .filter { it.mealType == MealType.Breakfast }
+            .sumOf { it.protein }
+
+        assertThat(breakFastCalories).isNotEqualTo(expectedCalories)
     }
 }
